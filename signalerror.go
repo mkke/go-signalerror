@@ -36,3 +36,12 @@ func ErrSignalExitCode(err error) (int, bool) {
 		return 0, false
 	}
 }
+
+// ErrSignalIsTerm returns true if err was a ErrSignal for SIGTERM
+func ErrSignalIsTerm(err error) bool {
+	if err, ok := err.(*ErrSignal); ok {
+		return err.Signal == syscall.SIGTERM
+	} else {
+		return false
+	}
+}
